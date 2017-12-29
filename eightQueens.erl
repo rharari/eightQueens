@@ -3,7 +3,7 @@
 %% @doc para simplificar, o algortimo considera nao aceitar 2 rainhas na mesma linha.
 %% @doc ex resultado: "57248136" significa -> na primeira linha uma rainha esta na coluna 5, na segunda linha uma reinha na coluna 7, ...
 
--module(eigthQueens).
+-module(eightQueens).
 
 -define(POP_SIZE, 10).
 -define(PROB_MUTACAO, 0.15).
