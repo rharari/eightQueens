@@ -65,7 +65,7 @@ carregarFilho(Size, Populacao, ProbMutacao, BestFitness) ->
 	I2 = selecionarIndividuo(Populacao, I1),
 	F1 = crossover(I1, I2),
 	Fitness = fitness(F1),
-	P1 = random:uniform(),
+	P1 = rand:uniform(),
 	case P1 < ProbMutacao of
 		true ->
 			case Fitness =< BestFitness of
@@ -79,26 +79,26 @@ carregarFilho(Size, Populacao, ProbMutacao, BestFitness) ->
 	end.
 
 selecionarIndividuo(Populacao, Individuo) ->
-	Individuo2 = lists:nth(random:uniform(length(Populacao)), Populacao),
+	Individuo2 = lists:nth(rand:uniform(length(Populacao)), Populacao),
 	case Individuo == Individuo2 of
 		true -> selecionarIndividuo(Populacao, Individuo);
 		false -> Individuo2
 	end.
 
 crossover(I1, I2) ->
-	N = random:uniform(length(I1) - 1),
+	N = rand:uniform(length(I1) - 1),
 	string:substr(I1, 1, N) ++ string:substr(I2, N + 1).
 
 mutate(I1) ->
 	L = length(I1) - 1,
-	N = random:uniform(length(I1)) - 1,
+	N = rand:uniform(length(I1)) - 1,
 	S = getRandomGene(),
 	case N of
 		L -> string:substr(I1, 1, N) ++ S;
 		_Else -> string:substr(I1, 1, N) ++ S ++ string:substr(I1, N + 2)
 	end.
  
-getRandomGene() -> integer_to_list(random:uniform(8)).
+getRandomGene() -> integer_to_list(rand:uniform(8)).
 
 fitness(I1) -> fitnessVertical(I1) - fitnessDiagonal(I1, 1, 1) - fitnessDiagonal(I1, 1, -1).
 fitnessVertical([]) -> 0;
@@ -125,5 +125,5 @@ removerDuplicados(L) -> S = sets:from_list(L), sets:to_list(S).
 %% carregar a populacao inicial
 carregarPopulacao(1) -> [gerarIndividuo(8)];
 carregarPopulacao(Size) -> [gerarIndividuo(8)] ++ carregarPopulacao(Size - 1).
-gerarIndividuo(1) -> integer_to_list(random:uniform(8));
-gerarIndividuo(Size) -> integer_to_list(random:uniform(8)) ++ gerarIndividuo(Size - 1).
+gerarIndividuo(1) -> integer_to_list(rand:uniform(8));
+gerarIndividuo(Size) -> integer_to_list(rand:uniform(8)) ++ gerarIndividuo(Size - 1).
